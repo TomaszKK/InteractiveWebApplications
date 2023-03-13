@@ -9,19 +9,20 @@ public class Fibonacci {
         return number;
     }
 
-    public void setNumber(int n) throws IllegalArgumentException {
+    public void setNumber(int n) throws IllegalArgumentException{
         if(n < 0) {
-            throw new IllegalArgumentException("Input must be bigger than 0");
+            System.out.println("Input must be positive integer 0");
+            throw new IllegalArgumentException();
         }
         this.number = n;
     }
 
-    public void setNumber(String n) throws NumberFormatException{
-        try {
+    public void setNumber(String n){
+        try{
             int newnumber = Integer.parseInt(n);
             setNumber(newnumber);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("Input must be an integer");
+            System.out.println("Input must be positive integer");
         }
     }
 

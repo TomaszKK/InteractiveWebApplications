@@ -21,7 +21,6 @@ public class FibonacciController {
 
     @RequestMapping(value = "/addFibonacci.html", method = RequestMethod.POST)
     public String addFibonacci(@ModelAttribute("fibonacci") Fibonacci fibonacci, BindingResult result) {
-        // Check for validation errors
         if (result.hasErrors()) {
             FieldError error = result.getFieldError("number");
             if (error != null) {
@@ -30,7 +29,6 @@ public class FibonacciController {
             return "redirect:fibonacci";
         }
 
-        // Process the valid form data
         System.out.println(fibonacci.getFibonacci());
         return "redirect:fibonacci";
     }
