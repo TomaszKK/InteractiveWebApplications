@@ -1,7 +1,7 @@
 package com.helloworld.controller;
 
 import com.helloworld.model.Student;
-import com.helloworld.respository.StudentRespository;
+import com.helloworld.respository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +13,26 @@ import java.util.Map;
 @RestController
 @RequestMapping("/students")
 public class StudentRESTController {
-    private StudentRespository studentRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StudentRESTController(StudentRespository studentRespository) {
+    public StudentRESTController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Student> findAllStudents() {
         return studentRepository.findAll();
+    }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Student> findStudentById(@PathVariable("id") long id){
+        Student student = studentRepository.findById(id);
+        if(student == null){
+            System.out.println("Student not found");
+            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -42,11 +52,24 @@ public class StudentRESTController {
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Student> deleteAllStudents(){
+        studentRepository.deleteAll();
+        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
+    }
+
     @RequestMapping(value="/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable("id") long id){
         student.setId(id);
         studentRepository.save(student);
         return new ResponseEntity<Student>(student, HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Student> updateAllStudents(@RequestBody List<Student> students){
+        studentRepository.deleteAll();
+        studentRepository.saveAll(students);
+        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.PATCH)
