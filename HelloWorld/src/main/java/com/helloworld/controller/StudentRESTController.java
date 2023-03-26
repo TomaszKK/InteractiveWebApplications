@@ -1,6 +1,8 @@
 package com.helloworld.controller;
 
+import com.helloworld.model.Address;
 import com.helloworld.model.Student;
+import com.helloworld.respository.AddressRepository;
 import com.helloworld.respository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +15,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/students")
 public class StudentRESTController {
+
     private StudentRepository studentRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
-    public StudentRESTController(StudentRepository studentRepository) {
+    public StudentRESTController(StudentRepository studentRepository, AddressRepository addressRepository) {
         this.studentRepository = studentRepository;
+        this.addressRepository = addressRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -37,6 +42,11 @@ public class StudentRESTController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+        // Commented out due to simplify http requests sent from angular app
+        if(student.getAddress().getId() <= 0){
+            addressRepository.save(student.getAddress());
+        }
+        // Commented out due to simplify http requests sent from angular app
         studentRepository.save(student);
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
     }

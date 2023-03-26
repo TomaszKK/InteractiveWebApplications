@@ -1,8 +1,9 @@
 package com.helloworld.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Student {
@@ -14,6 +15,16 @@ public class Student {
     private String lastname;
     private String email;
     private String telephone;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Account account;
+
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Address address;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Team> teamList;
 
     public long getId() {
         return id;
@@ -54,4 +65,31 @@ public class Student {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    // Commented out due to simplify http requests sent from angular app
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Team> getTeamList() {
+        return teamList;
+    }
+
+    public void setTeamList(List<Team> teamList) {
+        this.teamList = teamList;
+    }
+    // Commented out due to simplify http requests sent from angular app
+
 }
