@@ -1,0 +1,16 @@
+<form class="ui large form segment">
+  <div class="field">
+    <label for="number">Number:</label>
+    <input name="number" #newnumber>
+  </div>
+  <button (click)="calculateFibonacci(newnumber)" class="ui positive right floated button">
+    Calculate
+  </button>
+</form>
+
+<div *ngIf="errorMessage" class="ui negative message">{{ errorMessage }}</div>
+
+<div class="ui segment" *ngIf="fibonacci !== null">
+  <h3 class="ui header">Result:</h3>
+  <output name="fibonacci">{{ fibonacci }}</output>
+</div>
