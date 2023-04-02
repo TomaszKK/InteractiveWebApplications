@@ -16,7 +16,6 @@ public class Team {
     private long id;
     private String teamName;
 
-
     @ManyToMany(mappedBy = "teamList")
     @JsonBackReference
     private List<Student> studentslist;
