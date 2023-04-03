@@ -21,10 +21,6 @@ export class FibonacciComponent {
       this.errorMessage = null;
     }
     return false;
-    /*
-      this.fibonacci = this.getFibonacci(Number(inputnumber.value));
-      return false;
-     */
   }
 
   getFibonacci(input: number): number {
