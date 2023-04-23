@@ -15,11 +15,11 @@ public class Team {
     @GeneratedValue
     private long id;
     private String teamName;
-
+/*
     @ManyToMany(mappedBy = "teamList")
     @JsonBackReference
     private List<Student> studentslist;
-
+*/
     public long getId() {
         return id;
     }
@@ -35,7 +35,7 @@ public class Team {
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
-
+/*
     public List<Student> getStudentslist() {
         return studentslist;
     }
@@ -43,5 +43,7 @@ public class Team {
     public void setStudentslist(List<Student> studentslist) {
         this.studentslist = studentslist;
     }
+
+ */
 }
 

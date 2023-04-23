@@ -15,7 +15,7 @@ public class Student {
     private String lastname;
     private String email;
     private String telephone;
-
+/*
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 
@@ -25,7 +25,7 @@ public class Student {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Team> teamList;
-
+*/
     public long getId() {
         return id;
     }
@@ -67,7 +67,7 @@ public class Student {
     }
 
     // Commented out due to simplify http requests sent from angular app
-    public Account getAccount() {
+  /*  public Account getAccount() {
         return account;
     }
 
@@ -91,5 +91,5 @@ public class Student {
         this.teamList = teamList;
     }
     // Commented out due to simplify http requests sent from angular app
-
+*/
 }

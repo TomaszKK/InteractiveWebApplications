@@ -1,0 +1,94 @@
+/* style the form container */
+form {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* style the form labels */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* style the form input fields */
+input[type=text], input[type=email], textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* style the form submit button */
+button[type=submit] {
+  background-color: #0077cc;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button[type=submit]:hover {
+  background-color: #0059a3;
+}
+
+/* style the form error messages */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* style the form fieldset */
+fieldset {
+  border: none;
+}
+
+/* style the form legend */
+legend {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #0077cc;
+}
+
+/* style the form wrapper */
+.form-wrapper {
+  position: relative;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* style the form header */
+.form-header {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  background-color: #0077cc;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* style the form header text */
+.form-header h1 {
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}

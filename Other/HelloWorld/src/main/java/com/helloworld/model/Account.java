@@ -8,14 +8,16 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Account {
+
     @Id
     @GeneratedValue
     private long id;
     private String accountName;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "account")
-    private Student student;
+    // Commented out due to simplify http requests sent from angular app
+//    @OneToOne(mappedBy = "account")
+//    private Student student;
 
     public long getId() {
         return id;
@@ -33,11 +35,14 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public Student getStudent() {
-        return student;
-    }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+    // Commented out due to simplify http requests sent from angular app
+//    public Student getStudent() {
+//        return student;
+//    }
+//
+//    public void setStudent(Student student) {
+//        this.student = student;
+//    }
+
 }

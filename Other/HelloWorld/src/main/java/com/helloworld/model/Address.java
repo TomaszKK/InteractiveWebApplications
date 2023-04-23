@@ -19,10 +19,10 @@ public class Address {
 
 
     // Commented out due to simplify http requests sent from angular app
-    @JsonManagedReference
+ /*   @JsonManagedReference
     @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     //@JoinTable(name="student_address",joinColumns = @JoinColumn(name="student_id"),inverseJoinColumns = @JoinColumn(name="address_id"))
-    private List<Student> studentList;
+    private List<Student> studentList;*/
 
     public long getId() {
         return id;
@@ -64,7 +64,7 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-
+/*
     // Commented out due to simplify http requests sent from angular app
     public List<Student> getStudentList() {
         return studentList;
@@ -73,4 +73,6 @@ public class Address {
     public void setStudentList(List<Student> studentList) {
         this.studentList = studentList;
     }
+
+ */
 }

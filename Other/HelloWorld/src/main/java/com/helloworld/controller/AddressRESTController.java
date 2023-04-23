@@ -85,9 +85,7 @@ public class AddressRESTController {
         if (updates.containsKey("postalCode")) {
             address.setPostalCode((String) updates.get("postalCode"));
         }
-        if (updates.containsKey("studentList")) {
-            address.setStudentList((List<Student>) updates.get("studentList"));
-        }
+
 
 
         addressRepository.save(address);

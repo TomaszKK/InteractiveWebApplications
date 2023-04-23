@@ -60,7 +60,7 @@ public class AccountRESTController {
         accountRepository.saveAll(accounts);
         return new ResponseEntity<Account>(HttpStatus.NO_CONTENT);
     }
-
+/*
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Account> updatePartOfAccount(@RequestBody Map<String, Object> updates, @PathVariable("id") long id) {
         Account account = accountRepository.findById(id);
@@ -82,4 +82,5 @@ public class AccountRESTController {
         accountRepository.save(account);
     }
 
+ */
 }
