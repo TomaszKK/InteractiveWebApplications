@@ -1,0 +1,31 @@
+.color-changer {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  border: 2px solid black;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 200px;
+  transition: background-color 0.3s ease;
+}
+
+.color-changer:focus {
+  outline: none;
+}
+
+.color-changer:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.color-changer.blue {
+  background-color: blue;
+  color: white;
+}
+
+.color-changer.red {
+  background-color: red;
+  color: white;
+}
