@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -100,4 +101,13 @@ public class StudentRESTController {
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/putAll")
+    public ResponseEntity<List<Student>> putAllStudents(@RequestBody List<Student> students) {
+        List<Student> updatedStudents = new ArrayList<Student>();
+        for(Student student: students) {
+            Student updatedStudent = studentRepository.save(student);
+            updatedStudents.add(updatedStudent);
+        }
+        return new ResponseEntity<List<Student>>(updatedStudents, HttpStatus.OK);
+    }
 }

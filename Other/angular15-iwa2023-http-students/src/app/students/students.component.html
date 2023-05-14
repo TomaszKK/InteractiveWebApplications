@@ -21,6 +21,7 @@
                   studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
     add
   </button>
+
 </div>
 <ul>
   <li *ngFor="let student of studentList">
@@ -30,7 +31,15 @@
                             studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
       Update
     </button>
+    <button title="patch" (click)="patch(studentFirstName.value,studentLastName.value, studentEmail.value, studentTelephone.value, student);
+                            studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
+      Patch
+    </button>
   </li>
 </ul>
 <button title="delete all" (click)="deleteAll()">delete all</button>
+<button (click)="putAll(studentFirstName.value, studentLastName.value, studentEmail.value, studentTelephone.value);
+                  studentFirstName.value=''; studentLastName.value=''; studentEmail.value=''; studentTelephone.value=''">
+  put all
+</button>
 

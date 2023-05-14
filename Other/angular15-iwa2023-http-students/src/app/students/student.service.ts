@@ -73,6 +73,25 @@ export class StudentService {
     );
   }
 
+  patchStudent(student: Student, id:number): Observable<Student> {
+    window.location.reload();
+    return this.http.patch<Student>(`${this.studentsUrl}/${id}`, student, httpOptions).pipe(
+      tap((studentUpdated: Student) => this.log(`patched student id=${studentUpdated.id}`)),
+      catchError(this.handleError<any>('patchStudent'))
+    );
+  }
+
+  putAllStudents(students: Student[]): Observable<Student[]> {
+    return this.http.put<Student[]>(this.studentsUrl, students, httpOptions).pipe(
+      tap(_ => this.log(`putAll student id=${students}`)),
+      catchError(this.handleError<any>('putAllStudent'))
+    );
+  }
+
+  getAllStudents(): Observable<Student[]> {
+    return this.http.get<Student[]>(this.studentsUrl);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
