@@ -1,7 +1,10 @@
 package pl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -11,11 +14,13 @@ public class Artist {
     private long id;
     private String name, secondName, bio, mediaLinks, location, type;
     private int age;
-    @OneToMany(mappedBy = "artist")
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Poem> poems;
+    /*
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
-
+*/
     public long getId() {
         return id;
     }
@@ -88,6 +93,24 @@ public class Artist {
         this.poems = poems;
     }
 
+    public void addPoem(Poem poem) {
+        poem.setArtist(this);
+        poems.add(poem);
+    }
+
+    public void removePoem(Poem poem) {
+        poems.remove(poem);
+        poem.setArtist(null);
+    }
+
+    public void getPoem(Poem poem) {
+        poems.get(poems.indexOf(poem));
+    }
+
+    public void setPoem(Poem poem) {
+        poems.set(poems.indexOf(poem), poem);
+    }
+/*
     public Account getAccount() {
         return account;
     }
@@ -95,4 +118,6 @@ public class Artist {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+ */
 }

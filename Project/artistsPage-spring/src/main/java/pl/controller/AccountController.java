@@ -66,7 +66,7 @@ public class AccountController {
         accountRepository.save(account);
         return new ResponseEntity<Account>(account, HttpStatus.OK);
     }
-
+/*
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Account> updateAccountPartially(@PathVariable("id") long id, @RequestBody Account account) {
         Account currentAccount = accountRepository.findById(id);
@@ -83,4 +83,6 @@ public class AccountController {
         accountRepository.save(currentAccount);
         return new ResponseEntity<Account>(currentAccount, HttpStatus.OK);
     }
+
+ */
 }
