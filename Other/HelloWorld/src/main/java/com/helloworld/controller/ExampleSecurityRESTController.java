@@ -22,5 +22,4 @@ public class ExampleSecurityRESTController {
     public String adminAccess() {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     return ">>> Admin Contents";
     }
-
 }
