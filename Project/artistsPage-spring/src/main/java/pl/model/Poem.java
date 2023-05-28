@@ -25,6 +25,10 @@ public class Poem {
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
+    @ManyToMany(mappedBy = "likedPoems", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonBackReference
+    private List<Visitor> visitors;
+
     public void setId(long id) {
         this.id = id;
     }
@@ -88,5 +92,22 @@ public class Poem {
     public void setCreationDate(Date CreationDate) {
         this.CreationDate = CreationDate;
     }
+
+    public List<Visitor> getVisitors() {
+        return visitors;
+    }
+
+    public void setVisitors(List<Visitor> visitors) {
+        this.visitors = visitors;
+    }
+
+    public void addVisitor(Visitor visitor) {
+        this.visitors.add(visitor);
+    }
+
+    public void removeVisitor(Visitor visitor) {
+        this.visitors.remove(visitor);
+    }
+
 
 }
