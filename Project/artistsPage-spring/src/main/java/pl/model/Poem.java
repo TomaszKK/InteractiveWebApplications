@@ -1,6 +1,6 @@
 package pl.model;
 
-<<<<<<< Updated upstream
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -8,10 +8,6 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-=======
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
->>>>>>> Stashed changes
 
 @Entity
 public class Poem {

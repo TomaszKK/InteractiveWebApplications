@@ -1,7 +1,7 @@
-import { Artist } from './artist.model';
+import { ArtistModel } from './artist.model';
 
-describe('Artist', () => {
+describe('ArtistModel', () => {
   it('should create an instance', () => {
-    expect(new Artist()).toBeTruthy();
+    expect(new ArtistModel()).toBeTruthy();
   });
 });

@@ -17,19 +17,11 @@ public class Artist {
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Poem> poems;
-<<<<<<< Updated upstream
-    /*
-    @OneToOne(cascade = CascadeType.ALL)
-    private Account account;
-*/
-=======
 
     /*
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
      */
-
->>>>>>> Stashed changes
     public long getId() {
         return id;
     }
@@ -101,7 +93,7 @@ public class Artist {
     public void setPoems(List<Poem> poems) {
         this.poems = poems;
     }
-<<<<<<< Updated upstream
+
 
     public void addPoem(Poem poem) {
         poem.setArtist(this);
@@ -120,19 +112,4 @@ public class Artist {
     public void setPoem(Poem poem) {
         poems.set(poems.indexOf(poem), poem);
     }
-=======
->>>>>>> Stashed changes
-/*
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
- */
 }

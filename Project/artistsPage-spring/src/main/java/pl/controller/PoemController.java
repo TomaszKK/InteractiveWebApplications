@@ -10,6 +10,7 @@ import pl.model.Poem;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/poem")
 public class PoemController {
     private PoemRepository poemRepository;

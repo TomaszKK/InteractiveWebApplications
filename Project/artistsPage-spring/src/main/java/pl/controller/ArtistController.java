@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/artist")
 public class ArtistController {
     private ArtistRepository artistRepository;
@@ -36,7 +37,6 @@ public class ArtistController {
         return artistRepository.findById(id);
     }
 
-<<<<<<< Updated upstream
     @GetMapping(value = "/{id}/poems")
     public List<Poem> findPoems(@PathVariable("id") long id) {
         return artistRepository.findById(id).getPoems();
@@ -46,9 +46,6 @@ public class ArtistController {
     public Poem findPoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
         return artistRepository.findById(id).getPoems().stream().filter(poem -> poem.getId() == poemId).findFirst().get();
     }
-=======
-
->>>>>>> Stashed changes
 
     @PostMapping
     public Artist addArtist(@RequestBody Artist artist) {
@@ -85,7 +82,6 @@ public class ArtistController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-<<<<<<< Updated upstream
     @DeleteMapping(value = "/{id}/poems/{poemId}")
     public ResponseEntity<Void> deletePoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
         Artist artist = artistRepository.findById(id);
@@ -106,9 +102,6 @@ public class ArtistController {
         artistRepository.save(artist);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-=======
->>>>>>> Stashed changes
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Artist> updateArtist(@PathVariable("id") long id, @RequestBody Artist artist) {

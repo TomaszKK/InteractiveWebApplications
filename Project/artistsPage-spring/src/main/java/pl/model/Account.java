@@ -27,14 +27,4 @@ public class Account {
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
-/*
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
- */
 }

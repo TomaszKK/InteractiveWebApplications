@@ -12,6 +12,7 @@ import pl.repository.VisitorRepository;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/visitor")
 public class VisitorController {
     private VisitorRepository visitorRepository;
