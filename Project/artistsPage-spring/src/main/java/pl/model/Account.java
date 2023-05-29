@@ -12,10 +12,6 @@ public class Account {
     private long id;
     private String accountName;
 
-
-    @OneToOne(mappedBy = "account")
-    private Artist artist;
-
     public long getId() {
         return id;
     }
@@ -31,7 +27,7 @@ public class Account {
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
-
+/*
     public Artist getArtist() {
         return artist;
     }
@@ -39,4 +35,6 @@ public class Account {
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
+
+ */
 }

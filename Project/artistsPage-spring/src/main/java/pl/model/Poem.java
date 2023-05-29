@@ -1,9 +1,12 @@
 package pl.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import java.util.Date;
+import java.util.List;
+
 
 @Entity
 public class Poem {
@@ -13,11 +16,18 @@ public class Poem {
     private String title;
     private String text;
     private String genre;
+    private Date CreationDate;
     private double rating;
     private int numberOfRatings;
 
     @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "artist_id")
     private Artist artist;
+
+    @ManyToMany(mappedBy = "likedPoems", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonBackReference
+    private List<Visitor> visitors;
 
     public void setId(long id) {
         this.id = id;
@@ -74,4 +84,30 @@ public class Poem {
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
+
+    public Date getCreationDate() {
+        return CreationDate;
+    }
+
+    public void setCreationDate(Date CreationDate) {
+        this.CreationDate = CreationDate;
+    }
+
+    public List<Visitor> getVisitors() {
+        return visitors;
+    }
+
+    public void setVisitors(List<Visitor> visitors) {
+        this.visitors = visitors;
+    }
+
+    public void addVisitor(Visitor visitor) {
+        this.visitors.add(visitor);
+    }
+
+    public void removeVisitor(Visitor visitor) {
+        this.visitors.remove(visitor);
+    }
+
+
 }
