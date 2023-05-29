@@ -9,6 +9,7 @@ import pl.repository.AccountRepository;
 import pl.repository.ArtistRepository;
 import pl.model.Artist;
 import pl.model.Account;
+import pl.repository.PoemRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +18,12 @@ import java.util.Optional;
 @RequestMapping("/artist")
 public class ArtistController {
     private ArtistRepository artistRepository;
-    private AccountRepository accountRepository;
+    private PoemRepository poemRepository;
 
     @Autowired
-    public ArtistController(ArtistRepository artistRepository, AccountRepository accountRepository) {
+    public ArtistController(ArtistRepository artistRepository) {
         this.artistRepository = artistRepository;
-        this.accountRepository = accountRepository;
+        this.poemRepository = poemRepository;
     }
 
     @GetMapping
@@ -35,6 +36,7 @@ public class ArtistController {
         return artistRepository.findById(id);
     }
 
+<<<<<<< Updated upstream
     @GetMapping(value = "/{id}/poems")
     public List<Poem> findPoems(@PathVariable("id") long id) {
         return artistRepository.findById(id).getPoems();
@@ -44,6 +46,9 @@ public class ArtistController {
     public Poem findPoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
         return artistRepository.findById(id).getPoems().stream().filter(poem -> poem.getId() == poemId).findFirst().get();
     }
+=======
+
+>>>>>>> Stashed changes
 
     @PostMapping
     public Artist addArtist(@RequestBody Artist artist) {
@@ -80,6 +85,7 @@ public class ArtistController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+<<<<<<< Updated upstream
     @DeleteMapping(value = "/{id}/poems/{poemId}")
     public ResponseEntity<Void> deletePoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
         Artist artist = artistRepository.findById(id);
@@ -101,6 +107,8 @@ public class ArtistController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+=======
+>>>>>>> Stashed changes
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Artist> updateArtist(@PathVariable("id") long id, @RequestBody Artist artist) {
