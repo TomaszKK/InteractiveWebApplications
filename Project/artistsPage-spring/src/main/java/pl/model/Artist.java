@@ -99,6 +99,7 @@ public class Artist {
         this.poems = poems;
     }
 
+
     public void addPoem(Poem poem) {
         poems.add(poem);
         poem.setArtist(this);

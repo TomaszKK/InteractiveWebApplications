@@ -102,7 +102,6 @@ public class ArtistController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<Artist> updateArtist(@PathVariable("id") long id, @RequestBody Artist artist) {
         artist.setId(id);
