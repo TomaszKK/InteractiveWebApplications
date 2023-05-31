@@ -16,10 +16,7 @@ import pl.message.request.SignUpForm;
 import pl.message.response.JwtResponse;
 import pl.message.response.ResponseMessage;
 import pl.model.*;
-import pl.repository.ArtistRepository;
-import pl.repository.RoleRepository;
-import pl.repository.UserRepository;
-import pl.repository.VisitorRepository;
+import pl.repository.*;
 import pl.security.jwt.JwtProvider;
 
 import java.util.HashSet;
@@ -37,10 +34,10 @@ public class AuthController {
     private JwtProvider jwtProvider;
     private ArtistRepository artistRepository;
     private VisitorRepository visitorRepository;
-   // private AdminRepository adminRepository;
+    private AdminRepository adminRepository;
 
     @Autowired
-    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ArtistRepository artistRepository, VisitorRepository visitorRepository) {
+    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ArtistRepository artistRepository, VisitorRepository visitorRepository, AdminRepository adminRepository) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -48,6 +45,7 @@ public class AuthController {
         this.jwtProvider = jwtProvider;
         this.artistRepository = artistRepository;
         this.visitorRepository = visitorRepository;
+        this.adminRepository = adminRepository;
     }
 
     @PostMapping("/signin")
