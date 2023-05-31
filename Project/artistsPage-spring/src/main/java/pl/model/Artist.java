@@ -1,7 +1,6 @@
 package pl.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -9,24 +8,31 @@ import java.util.List;
 
 @Entity
 public class Artist {
+
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
     private String name, secondName, bio, mediaLinks, location, type;
     private int age;
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Poem> poems;
-    /*
-    @OneToOne(cascade = CascadeType.ALL)
-    private Account account;
-*/
-    public long getId() {
-        return id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("artist")
+    private User user;
+
+    public Artist() {
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public int getAge() {
@@ -94,30 +100,19 @@ public class Artist {
     }
 
     public void addPoem(Poem poem) {
-        poem.setArtist(this);
         poems.add(poem);
+        poem.setArtist(this);
     }
 
     public void removePoem(Poem poem) {
         poems.remove(poem);
         poem.setArtist(null);
     }
-
-    public void getPoem(Poem poem) {
-        poems.get(poems.indexOf(poem));
+    public User getUser() {
+        return user;
     }
 
-    public void setPoem(Poem poem) {
-        poems.set(poems.indexOf(poem), poem);
+    public void setUser(User user) {
+        this.user = user;
     }
-/*
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
- */
 }

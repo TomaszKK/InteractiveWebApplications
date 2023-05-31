@@ -1,7 +1,7 @@
 package pl.model;
 
 public enum RoleName {
-    ARTIST,
-    VISITOR,
-    ADMIN
+    ROLE_ARTIST,
+    ROLE_VISITOR,
+    ROLE_ADMIN
 }

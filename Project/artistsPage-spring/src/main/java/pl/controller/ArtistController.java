@@ -5,24 +5,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.model.Poem;
-import pl.repository.AccountRepository;
 import pl.repository.ArtistRepository;
 import pl.model.Artist;
-import pl.model.Account;
+import pl.repository.PoemRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/artist")
 public class ArtistController {
     private ArtistRepository artistRepository;
-    private AccountRepository accountRepository;
+    private PoemRepository poemRepository;
 
     @Autowired
-    public ArtistController(ArtistRepository artistRepository, AccountRepository accountRepository) {
+    public ArtistController(ArtistRepository artistRepository, PoemRepository poemRepository) {
+        this.poemRepository = poemRepository;
         this.artistRepository = artistRepository;
-        this.accountRepository = accountRepository;
     }
 
     @GetMapping
@@ -42,7 +42,7 @@ public class ArtistController {
 
     @GetMapping(value = "/{id}/poems/{poemId}")
     public Poem findPoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
-        return artistRepository.findById(id).getPoems().stream().filter(poem -> poem.getId() == poemId).findFirst().get();
+        return poemRepository.findById(poemId);
     }
 
     @PostMapping
@@ -54,10 +54,12 @@ public class ArtistController {
     @PostMapping(value = "/{id}/poems")
     public ResponseEntity<Poem> addPoem(@PathVariable("id") long id, @RequestBody Poem poem) {
         Artist artist = artistRepository.findById(id);
+
         if (artist == null) {
             System.out.println("Artist not found");
             return new ResponseEntity<Poem>(HttpStatus.NOT_FOUND);
         }
+        poemRepository.save(poem);
         artist.addPoem(poem);
         artistRepository.save(artist);
         return new ResponseEntity<Poem>(poem, HttpStatus.CREATED);
@@ -83,20 +85,19 @@ public class ArtistController {
     @DeleteMapping(value = "/{id}/poems/{poemId}")
     public ResponseEntity<Void> deletePoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
         Artist artist = artistRepository.findById(id);
+        Poem poem = poemRepository.findById(poemId);
         if (artist == null) {
             System.out.println("Artist not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Optional<Poem> poemOptional = artist.getPoems().stream().filter(p -> p.getId() == poemId).findFirst();
-        if (poemOptional.isEmpty()) {
+        if (poem == null) {
             System.out.println("Poem not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Poem poem = poemOptional.get();
-        artist.removePoem(poem); // Use the removePoem method from the Artist entity
-
+        artist.removePoem(poem);
+        poemRepository.delete(poem);
         artistRepository.save(artist);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -116,11 +117,11 @@ public class ArtistController {
         return new ResponseEntity<Artist>(HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/{id}")
+    @PatchMapping( "/{id}")
     public ResponseEntity<Artist> updateArtistPartially(@PathVariable("id") long id, @RequestBody Artist updatedArtist) {
         Artist currentartist= artistRepository.findById(id);
         if (currentartist == null) {
-            System.out.println("Team not found");
+            System.out.println("Artist not found");
             return ResponseEntity.notFound().build();
         }
         if (updatedArtist.getAge() != 0) {
@@ -151,11 +152,11 @@ public class ArtistController {
     @PatchMapping(value = "/{id}/poems/{poemId}")
     public ResponseEntity<Poem> updatePoemPartially(@PathVariable("id") long id, @PathVariable("poemId") long poemId, @RequestBody Poem updatedPoem) {
         Artist artist = artistRepository.findById(id);
+        Poem poem = poemRepository.findById(poemId);
         if (artist == null) {
             System.out.println("Artist not found");
             return ResponseEntity.notFound().build();
         }
-        Poem poem = artist.getPoems().stream().filter(p -> p.getId() == poemId).findFirst().get();
         if (updatedPoem.getTitle() != null) {
             poem.setTitle(updatedPoem.getTitle());
         }
@@ -168,7 +169,9 @@ public class ArtistController {
         if (updatedPoem.getCreationDate() != null) {
             poem.setCreationDate(updatedPoem.getCreationDate());
         }
+        poemRepository.save(poem);
         artistRepository.save(artist);
         return ResponseEntity.ok(poem);
     }
+
 }

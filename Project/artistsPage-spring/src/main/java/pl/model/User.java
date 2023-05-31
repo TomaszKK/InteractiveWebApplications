@@ -1,5 +1,6 @@
 package pl.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,10 +23,14 @@ public class User {
     @Size(min=6, max = 100)
     private String password;
 
-
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Artist artist;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Visitor visitor;
 
     public User() {
     }
@@ -65,5 +70,21 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
+
+    public Visitor getVisitor() {
+        return visitor;
     }
 }

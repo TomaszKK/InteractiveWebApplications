@@ -10,6 +10,7 @@ import pl.model.Poem;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/poem")
 public class PoemController {
     private PoemRepository poemRepository;
@@ -88,9 +89,9 @@ public class PoemController {
         if(poem.getNumberOfRatings() != 0) {
             currentPoem.setNumberOfRatings(poem.getNumberOfRatings());
         }
-        if(poem.getArtist() != null) {
-            currentPoem.setArtist(poem.getArtist());
-        }
+   //     if(poem.getArtist() != null) {
+     //       currentPoem.setArtist(poem.getArtist());
+       // }
         poemRepository.save(currentPoem);
         return new ResponseEntity<Poem>(currentPoem, HttpStatus.OK);
     }

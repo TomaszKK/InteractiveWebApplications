@@ -15,11 +15,11 @@ import pl.message.request.LoginForm;
 import pl.message.request.SignUpForm;
 import pl.message.response.JwtResponse;
 import pl.message.response.ResponseMessage;
-import pl.model.Role;
-import pl.model.RoleName;
-import pl.model.User;
+import pl.model.*;
+import pl.repository.ArtistRepository;
 import pl.repository.RoleRepository;
 import pl.repository.UserRepository;
+import pl.repository.VisitorRepository;
 import pl.security.jwt.JwtProvider;
 
 import java.util.HashSet;
@@ -35,14 +35,19 @@ public class AuthController {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private JwtProvider jwtProvider;
+    private ArtistRepository artistRepository;
+    private VisitorRepository visitorRepository;
+   // private AdminRepository adminRepository;
 
     @Autowired
-    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
+    public AuthController(DaoAuthenticationProvider daoAuthenticationProvider, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, ArtistRepository artistRepository, VisitorRepository visitorRepository) {
         this.daoAuthenticationProvider = daoAuthenticationProvider;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
+        this.artistRepository = artistRepository;
+        this.visitorRepository = visitorRepository;
     }
 
     @PostMapping("/signin")
@@ -73,27 +78,41 @@ public class AuthController {
         strRoles.forEach(role -> {
             switch (role) {
                 case "admin":
-                    Role adminRole = roleRepository.findByName(RoleName.ADMIN)
+                    Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Admin Role not found."));
                     roles.add(adminRole);
+                    User adminUser = new User(user.getUsername(), user.getPassword());
+                    adminUser.setRoles(roles);
+                    userRepository.save(adminUser);
+                    Admin admin = new Admin();
+                    admin.setUser(adminUser);
                     break;
                 case "artist":
-                    Role artistRole = roleRepository.findByName(RoleName.ARTIST)
+                    Role artistRole = roleRepository.findByName(RoleName.ROLE_ARTIST)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Artist Role not found."));
                     roles.add(artistRole);
+                    User artistUser = new User(user.getUsername(), user.getPassword());
+                    artistUser.setRoles(roles);
+                    userRepository.save(artistUser);
+                    Artist artist = new Artist();
+                    artist.setUser(artistUser);
+                    artistRepository.save(artist);
                     break;
                 default:
-                    Role visitorRole = roleRepository.findByName(RoleName.VISITOR)
+                    Role visitorRole = roleRepository.findByName(RoleName.ROLE_VISITOR)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Visitor Role not found."));
                     roles.add(visitorRole);
+                    User visitorUser = new User(user.getUsername(), user.getPassword());
+                    visitorUser.setRoles(roles);
+                    userRepository.save(visitorUser);
+                    Visitor visitor = new Visitor();
+                    visitor.setUser(visitorUser);
+                    visitorRepository.save(visitor);
+                    break;
             }
         });
 
-        user.setRoles(roles);
-        userRepository.save(user);
-
         return new ResponseEntity<>(new ResponseMessage("User registered successfully."), HttpStatus.OK);
-
     }
 
 }
