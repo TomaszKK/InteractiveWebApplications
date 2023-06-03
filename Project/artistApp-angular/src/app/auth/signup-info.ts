@@ -3,9 +3,9 @@ export class SignupInfo {
   role: string[];
   password: string;
 
-  constructor(username: string, password: string) {
+  constructor(username: string, password: string, role: string[]){
     this.username = username;
-    this.role = ['artist'];
+    this.role = role;
     this.password = password;
   }
 }

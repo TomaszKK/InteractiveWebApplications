@@ -10,39 +10,40 @@
   </div>
 
   <h2>Add Artist</h2>
-  <form (ngSubmit)="add(name.value, secondName.value, bio.value, mediaLinks.value, location.value, type.value, age.valueAsNumber)">
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" #name required>
-    </div>
-    <div>
-      <label for="secondName">Second Name:</label>
-      <input type="text" id="secondName" #secondName required>
-    </div>
-    <div>
-      <label for="bio">Bio:</label>
-      <textarea id="bio" #bio required></textarea>
-    </div>
-    <div>
-      <label for="mediaLinks">Media Links:</label>
-      <input type="text" id="mediaLinks" #mediaLinks required>
-    </div>
-    <div>
-      <label for="location">Location:</label>
-      <input type="text" id="location" #location required>
-    </div>
-    <div>
-      <label for="type">Type:</label>
-      <input type="text" id="type" #type required>
-    </div>
-    <div>
-      <label for="age">Age:</label>
-      <input type="number" id="age" #age required>
-    </div>
-    <div>
-      <label for="poems">Poems:</label>
-      <input type="text" id="poems" #poems required>
-    </div>
-    <button type="submit">Add Artist</button>
+    <form (ngSubmit)="artist && patch(name.value, secondName.value, bio.value, mediaLinks.value, location.value, type.value, age.valueAsNumber, artist)">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" #name required>
+      </div>
+      <div>
+        <label for="secondName">Second Name:</label>
+        <input type="text" id="secondName" #secondName required>
+      </div>
+      <div>
+        <label for="bio">Bio:</label>
+        <textarea id="bio" #bio required></textarea>
+      </div>
+      <div>
+        <label for="mediaLinks">Media Links:</label>
+        <input type="text" id="mediaLinks" #mediaLinks required>
+      </div>
+      <div>
+        <label for="location">Location:</label>
+        <input type="text" id="location" #location required>
+      </div>
+      <div>
+        <label for="type">Type:</label>
+        <input type="text" id="type" #type required>
+      </div>
+      <div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" #age required>
+      </div>
+      <div>
+        <label for="poems">Poems:</label>
+        <input type="text" id="poems" #poems required>
+      </div>
+      <input type="hidden" name="artistId" [value]="loggedInArtist?.id">
+      <button type="submit">Update Artist</button>
   </form>
 </div>

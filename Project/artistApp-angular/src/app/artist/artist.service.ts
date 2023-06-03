@@ -54,12 +54,14 @@ export class ArtistService {
     );
   }
 
+
   patchArtist(artist: ArtistModel, id:number): Observable<ArtistModel> {
     return this.http.patch<ArtistModel>(this.artistsUrl, artist, httpOptions).pipe(
       tap((artistUpdated: ArtistModel) => console.log(`patched artist id=${artistUpdated.id}`)),
       catchError(this.handleError<ArtistModel>('patchArtist'))
     );
   }
+
 
   putAllArtists(artists: ArtistModel[]): Observable<ArtistModel[]> {
     return this.http.put<ArtistModel[]>(this.artistsUrl, artists, httpOptions).pipe(

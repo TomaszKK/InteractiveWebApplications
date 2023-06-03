@@ -23,7 +23,11 @@ export class AppComponent {
           this.authority = 'admin';
           return false;
         }
-        this.authority = 'user';
+        if(role === 'ROLE_ARTIST'){
+          this.authority = 'artist';
+          return false;
+        }
+        this.authority = 'visitor';
         return true;
       });
     }

@@ -23,6 +23,17 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="role" id="role">Role:</label>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary"
+                  [ngClass]="{'btn-primary': form.role === 'artist', 'selected-role': form.role === 'artist'}"
+                  (click)="form.role = 'artist'">Artist</button>
+          <button type="button" class="btn btn-secondary"
+                  [ngClass]="{'btn-primary': form.role === 'visitor', 'selected-role': form.role === 'visitor'}"
+                  (click)="form.role = 'visitor'">Visitor</button>
+        </div>
+      </div>
+      <div class="form-group">
         <button class="btn btn-primary">Register</button>
         <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
           Signup failed!<br/>{{errorMessage}}

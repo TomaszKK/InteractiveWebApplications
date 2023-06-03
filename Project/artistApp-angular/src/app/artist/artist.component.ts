@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ArtistService} from "./artist.service";
 import {ArtistModel} from "./artist.model";
 import {PoemModel} from "../poem/poem.model";
+import {UserService} from "../servicesSecurity/user.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-artist',
@@ -13,12 +15,20 @@ export class ArtistComponent implements OnInit{
   artistList?: ArtistModel[];
 
   poemList?: PoemModel[];
+  loggedInArtist?: ArtistModel;
 
   ngOnInit(): void {
     this.getArtists();
+    this.userService.getLoggedInArtist().subscribe(
+      (artist: ArtistModel) => {
+        this.loggedInArtist = artist;
+      }
+    );
   }
 
-  constructor(private ArtistService: ArtistService) {
+  constructor(
+    private ArtistService: ArtistService,
+    private userService: UserService) {
   }
 
   getArtists(): void {
@@ -105,13 +115,8 @@ export class ArtistComponent implements OnInit{
     }
   }
 
-  patch(name: string, secondName: string, bio: string, mediaLinks: string, location: string, type: string, age: number, chosenToPatchArtist: ArtistModel): void {
-    let id = chosenToPatchArtist.id;
-    if (name == "") name = chosenToPatchArtist.name;
-    if (secondName == "") secondName = chosenToPatchArtist.secondName;
-    if (bio == "") bio = chosenToPatchArtist.bio;
-    if (mediaLinks == "") mediaLinks = chosenToPatchArtist.mediaLinks;
-    if (location == "") location = chosenToPatchArtist.location;
+  patch(name: string, secondName: string, bio: string, mediaLinks: string, location: string, type: string, age: number, artist: ArtistModel): void {
+    let id = artist.id;
     name = name.trim();
     secondName = secondName.trim();
     bio = bio.trim();
@@ -127,12 +132,12 @@ export class ArtistComponent implements OnInit{
         mediaLinks,
         location,
         type,
-        age
+        age,
       } as ArtistModel, id)
         .subscribe({
           next: (artist: ArtistModel) => {
             if (this.artistList != undefined) {
-              let index = this.artistList?.indexOf(chosenToPatchArtist);
+              let index = this.artistList?.indexOf(artist);
               this.artistList[index] = artist;
             }
           },
