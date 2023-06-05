@@ -89,9 +89,9 @@ public class PoemController {
         if(poem.getNumberOfRatings() != 0) {
             currentPoem.setNumberOfRatings(poem.getNumberOfRatings());
         }
-        if(poem.getArtist() != null) {
-            currentPoem.setArtist(poem.getArtist());
-        }
+   //     if(poem.getArtist() != null) {
+     //       currentPoem.setArtist(poem.getArtist());
+       // }
         poemRepository.save(currentPoem);
         return new ResponseEntity<Poem>(currentPoem, HttpStatus.OK);
     }

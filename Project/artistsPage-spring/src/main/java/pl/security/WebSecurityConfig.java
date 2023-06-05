@@ -52,9 +52,10 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/poem/**").permitAll()
+                        .requestMatchers("/poem/**").hasRole("ADMIN")
                         .requestMatchers("/artist/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/visitor/**").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/error").permitAll() // this enables the body in the exception responses
                         //.requestMatchers("/exampleSecurity/user").hasRole("USER")
                         //.requestMatchers("/exampleSecurity/admin").hasRole("ADMIN")

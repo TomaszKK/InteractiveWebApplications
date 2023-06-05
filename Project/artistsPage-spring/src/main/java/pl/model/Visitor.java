@@ -1,34 +1,49 @@
 package pl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-public class Visitor {
+public class Visitor{
     @Id
     @GeneratedValue
     private long id;
+
     private String name, surname;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonManagedReference
+    @ManyToMany
+    @JoinTable(
+        name = "visitor_liked_poem",
+        joinColumns = @JoinColumn(name = "visitor_id"),
+        inverseJoinColumns = @JoinColumn(name = "poem_id"))
+    @JsonIgnoreProperties("likedVisitors")
     private List<Poem> likedPoems;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("visitor")
+    private User user;
+
 
     public Visitor() {
     }
+
 
     public Visitor(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
-    public long getId() {
-        return id;
-    }
+
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 
      public String getName() {
@@ -47,20 +62,27 @@ public class Visitor {
         this.surname = surname;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user=user;
+    }
+
     public List<Poem> getLikedPoems() {
         return likedPoems;
     }
 
     public void setLikedPoems(List<Poem> likedPoems) {
-        this.likedPoems = (List<Poem>) likedPoems;
+        this.likedPoems=likedPoems;
     }
 
-    public void addLikedPoems(Poem likedPoems) {
-        this.likedPoems.add(likedPoems);
+    public void addLikedPoem(Poem poem) {
+        this.likedPoems.add(poem);
     }
 
-    public void removeLikedPoems(Poem likedPoems) {
-        this.likedPoems.remove(likedPoems);
+    public void removeLikedPoem(Poem poem) {
+        this.likedPoems.remove(poem);
     }
-
 }

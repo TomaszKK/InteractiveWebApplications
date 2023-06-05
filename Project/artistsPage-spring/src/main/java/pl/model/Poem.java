@@ -1,8 +1,6 @@
 package pl.model;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,17 +16,16 @@ public class Poem {
     private String text;
     private String genre;
     private Date CreationDate;
-    private double rating;
-    private int numberOfRatings;
+    private double rating; //rating/numberOfRatings wystarczy
+    private int numberOfRatings; //mozan zwieszac na frontend
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "artist_id")
+    @JsonBackReference
     private Artist artist;
 
-    @ManyToMany(mappedBy = "likedPoems", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonBackReference
-    private List<Visitor> visitors;
+    public Poem() {
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -93,22 +90,4 @@ public class Poem {
     public void setCreationDate(Date CreationDate) {
         this.CreationDate = CreationDate;
     }
-
-    public List<Visitor> getVisitors() {
-        return visitors;
-    }
-
-    public void setVisitors(List<Visitor> visitors) {
-        this.visitors = visitors;
-    }
-
-    public void addVisitor(Visitor visitor) {
-        this.visitors.add(visitor);
-    }
-
-    public void removeVisitor(Visitor visitor) {
-        this.visitors.remove(visitor);
-    }
-
-
 }
