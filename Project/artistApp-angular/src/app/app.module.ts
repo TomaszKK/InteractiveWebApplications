@@ -15,12 +15,13 @@ import {httpInterceptorProviders} from "./auth/auth-interceptor";
 import {HttpClientModule} from "@angular/common/http";
 import {RoleGuard} from "./guard/role.guard";
 import { LogoutComponent } from './logout/logout.component';
+import {AuthGuard} from "./guard/auth.guard";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'artist', component: ArtistComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN'] },},
-  { path: 'poem', component: PoemComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] },},
-  { path: 'visitor', component: VisitorComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ADMIN'] }, },
+  { path: 'artist', component: ArtistComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN'] },},
+  { path: 'poem', component: PoemComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] },},
+  { path: 'visitor', component: VisitorComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ADMIN'] }, },
   { path: 'admin', component: AdminComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },

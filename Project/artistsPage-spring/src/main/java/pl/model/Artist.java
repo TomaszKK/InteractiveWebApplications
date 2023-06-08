@@ -7,22 +7,24 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Artist {
+    public class Artist {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+        @Id
+        @GeneratedValue
+        private Long id;
 
-    private String name, secondName, bio, mediaLinks, location, type;
-    private int age;
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Poem> poems;
+        private String name, secondName, bio, mediaLinks, location, type;
+        private int age;
+        @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+        @JsonManagedReference
+        private List<Poem> poems;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("artist")
-    private User user;
+        @OneToOne
+        @JoinColumn(name = "user_id", referencedColumnName = "id")
+        @JsonIgnoreProperties("artist")
+        private User user;
+
+    private String username;
 
     public Artist() {
     }
@@ -116,4 +118,6 @@ public class Artist {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

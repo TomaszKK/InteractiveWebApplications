@@ -10,7 +10,7 @@
   </div>
 
   <h2>Add Artist</h2>
-    <form (ngSubmit)="artist && patch(name.value, secondName.value, bio.value, mediaLinks.value, location.value, type.value, age.valueAsNumber, artist)">
+    <form (ngSubmit)="patch(name.value, secondName.value, bio.value, mediaLinks.value, location.value, type.value, age.valueAsNumber, info.username)">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" #name required>
@@ -43,7 +43,6 @@
         <label for="poems">Poems:</label>
         <input type="text" id="poems" #poems required>
       </div>
-      <input type="hidden" name="artistId" [value]="loggedInArtist?.id">
       <button type="submit">Update Artist</button>
   </form>
 </div>

@@ -1,14 +1,20 @@
 package pl.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.model.Poem;
+import pl.model.User;
 import pl.repository.ArtistRepository;
 import pl.model.Artist;
 import pl.repository.PoemRepository;
+import pl.repository.UserRepository;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +24,12 @@ import java.util.Optional;
 public class ArtistController {
     private ArtistRepository artistRepository;
     private PoemRepository poemRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ArtistController(ArtistRepository artistRepository, PoemRepository poemRepository) {
+    public ArtistController(ArtistRepository artistRepository, PoemRepository poemRepository, UserRepository userRepository){
         this.poemRepository = poemRepository;
+        this.userRepository = userRepository;
         this.artistRepository = artistRepository;
     }
 
@@ -39,6 +47,8 @@ public class ArtistController {
     public List<Poem> findPoems(@PathVariable("id") long id) {
         return artistRepository.findById(id).getPoems();
     }
+
+
 
     @GetMapping(value = "/{id}/poems/{poemId}")
     public Poem findPoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
@@ -116,6 +126,43 @@ public class ArtistController {
         return new ResponseEntity<Artist>(HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/{username}")
+    @PreAuthorize("hasRole('ARTIST')")
+    public ResponseEntity<Artist> updateLoggedArtist(@RequestBody Artist updatedArtist, @PathVariable("username") String username){
+        User currentuser = userRepository.findByUsername(username).orElseThrow(
+                () -> new RuntimeException("Error: User not found.")
+        );
+        Artist currentartist = currentuser.getArtist();
+
+        if (currentartist == null) {
+            System.out.println("Artist not found");
+            return ResponseEntity.notFound().build();
+        }
+        if (updatedArtist.getAge() != 0) {
+            currentartist.setAge(updatedArtist.getAge());
+        }
+        if (updatedArtist.getName() != null) {
+            currentartist.setName(updatedArtist.getName());
+        }
+        if (updatedArtist.getSecondName() != null) {
+            currentartist.setSecondName(updatedArtist.getSecondName());
+        }
+        if (updatedArtist.getBio() != null) {
+            currentartist.setBio(updatedArtist.getBio());
+        }
+        if (updatedArtist.getMediaLinks() != null) {
+            currentartist.setMediaLinks(updatedArtist.getMediaLinks());
+        }
+        if (updatedArtist.getLocation() != null) {
+            currentartist.setLocation(updatedArtist.getLocation());
+        }
+        if (updatedArtist.getType() != null) {
+            currentartist.setType(updatedArtist.getType());
+        }
+        artistRepository.save(currentartist);
+        return ResponseEntity.ok(currentartist);
+    }
+/*
     @PatchMapping( "/{id}")
     public ResponseEntity<Artist> updateArtistPartially(@PathVariable("id") long id, @RequestBody Artist updatedArtist) {
         Artist currentartist= artistRepository.findById(id);
@@ -147,7 +194,7 @@ public class ArtistController {
         artistRepository.save(currentartist);
         return ResponseEntity.ok(currentartist);
     }
-
+*/
     @PatchMapping(value = "/{id}/poems/{poemId}")
     public ResponseEntity<Poem> updatePoemPartially(@PathVariable("id") long id, @PathVariable("poemId") long poemId, @RequestBody Poem updatedPoem) {
         Artist artist = artistRepository.findById(id);

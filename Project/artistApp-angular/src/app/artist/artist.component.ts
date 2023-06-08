@@ -4,6 +4,7 @@ import {ArtistModel} from "./artist.model";
 import {PoemModel} from "../poem/poem.model";
 import {UserService} from "../servicesSecurity/user.service";
 import {Observable} from "rxjs";
+import {TokenStorageService} from "../auth/token-storage.service";
 
 @Component({
   selector: 'app-artist',
@@ -16,6 +17,7 @@ export class ArtistComponent implements OnInit{
 
   poemList?: PoemModel[];
   loggedInArtist?: ArtistModel;
+  info: any;
 
   ngOnInit(): void {
     this.getArtists();
@@ -24,11 +26,18 @@ export class ArtistComponent implements OnInit{
         this.loggedInArtist = artist;
       }
     );
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
   }
 
   constructor(
     private ArtistService: ArtistService,
-    private userService: UserService) {
+    private userService: UserService,
+    private token: TokenStorageService
+) {
   }
 
   getArtists(): void {
@@ -115,16 +124,23 @@ export class ArtistComponent implements OnInit{
     }
   }
 
-  patch(name: string, secondName: string, bio: string, mediaLinks: string, location: string, type: string, age: number, artist: ArtistModel): void {
-    let id = artist.id;
+  patch(
+    name: string,
+    secondName: string,
+    bio: string,
+    mediaLinks: string,
+    location: string,
+    type: string,
+    age: number,
+    username: string
+  ): void {
     name = name.trim();
     secondName = secondName.trim();
     bio = bio.trim();
     mediaLinks = mediaLinks.trim();
     location = location.trim();
-
-    console.log(id);
-    if (id != undefined) {
+    console.log(username);
+    if (username != undefined) {
       this.ArtistService.patchArtist({
         name,
         secondName,
@@ -133,23 +149,23 @@ export class ArtistComponent implements OnInit{
         location,
         type,
         age,
-      } as ArtistModel, id)
-        .subscribe({
-          next: (artist: ArtistModel) => {
-            if (this.artistList != undefined) {
-              let index = this.artistList?.indexOf(artist);
+      } as ArtistModel, username).subscribe({
+        next: (artist: ArtistModel) => {
+          if (this.artistList !== undefined) {
+            const index = this.artistList.findIndex(a => a.id === artist.id);
+            if (index !== -1) {
               this.artistList[index] = artist;
             }
-          },
-          error: () => {
-          },
-          complete: () => {
-            if (this.artistList != undefined) {
-              this.ArtistService.totalItems.next(this.artistList.length);
-              console.log(this.artistList.length);
-            }
           }
-        });
+        },
+        error: () => {},
+        complete: () => {
+          if (this.artistList !== undefined) {
+            this.ArtistService.totalItems.next(this.artistList.length);
+            console.log(this.artistList.length);
+          }
+        },
+      });
     }
   }
 

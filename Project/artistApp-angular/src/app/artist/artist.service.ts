@@ -55,9 +55,9 @@ export class ArtistService {
   }
 
 
-  patchArtist(artist: ArtistModel, id:number): Observable<ArtistModel> {
-    return this.http.patch<ArtistModel>(this.artistsUrl, artist, httpOptions).pipe(
-      tap((artistUpdated: ArtistModel) => console.log(`patched artist id=${artistUpdated.id}`)),
+  patchArtist(artist: ArtistModel, username:string): Observable<ArtistModel> {
+    return this.http.patch<ArtistModel>(`${this.artistsUrl}/${username}`, artist, httpOptions).pipe(
+      tap((artistUpdated: ArtistModel) => console.log(`patched artist -> ${username}`)),
       catchError(this.handleError<ArtistModel>('patchArtist'))
     );
   }

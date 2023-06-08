@@ -27,6 +27,7 @@ public class UserPrinciple implements UserDetails {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+
     }
 
     public static UserPrinciple build(User user) {

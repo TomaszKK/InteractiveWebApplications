@@ -19,5 +19,10 @@ export class HomeComponent implements OnInit {
       authorities: this.token.getAuthorities()
     };
   }
+
+  logout() {
+    this.token.signOut();
+    window.location.reload();
+  }
 }
 

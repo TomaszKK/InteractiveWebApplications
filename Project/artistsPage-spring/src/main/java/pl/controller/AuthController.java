@@ -56,7 +56,7 @@ public class AuthController {
 
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
+        System.out.println("moj:"+jwt);
         return ResponseEntity.ok(new JwtResponse(jwt,userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
