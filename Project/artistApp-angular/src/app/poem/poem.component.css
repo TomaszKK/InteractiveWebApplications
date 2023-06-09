@@ -1,0 +1,61 @@
+/* Add Poem Form */
+.poem-form {
+  margin-bottom: 20px;
+}
+
+.poem-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.poem-form input,
+.poem-form select {
+  width: 50%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.poem-form textarea{
+  width: 50%;
+  height: 100px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.poem-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* Poem List */
+.poem-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.poem-item {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.poem-item h3 {
+  margin-top: 0;
+}
+
+.poem-item p {
+  margin-bottom: 5px;
+}
+
+.poem-item .genre {
+  font-weight: bold;
+}
+
+.poem-item .creation-date {
+  color: #888;
+}

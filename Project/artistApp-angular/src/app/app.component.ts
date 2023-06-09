@@ -10,26 +10,36 @@ export class AppComponent {
   title = 'Artist App';
   private roles?: string[];
   authority?: string;
+  info: any;
 
   constructor(private tokenStorage: TokenStorageService) {  }
 
   ngOnInit() {
     console.log("init");
     if (this.tokenStorage.getToken()) {
-      console.log(this.tokenStorage.getToken());
-      this.roles = this.tokenStorage.getAuthorities();
-      this.roles.every(role => {
-        if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
-        }
-        if(role === 'ROLE_ARTIST'){
-          this.authority = 'artist';
-          return false;
-        }
-        this.authority = 'visitor';
-        return true;
-      });
+        console.log(this.tokenStorage.getToken());
+        this.roles = this.tokenStorage.getAuthorities();
+        this.roles.every(role => {
+          if (role === 'ROLE_ADMIN') {
+            this.authority = 'admin';
+            return false;
+          }
+          if(role === 'ROLE_ARTIST'){
+            this.authority = 'artist';
+            return false;
+          }
+          if(role === 'ROLE_VISITOR'){
+            this.authority = 'visitor';
+            return false;
+          }
+          return true;
+        });
     }
+    this.info = {
+      token: this.tokenStorage.getToken(),
+      username: this.tokenStorage.getUsername(),
+      authorities: this.tokenStorage.getAuthorities()
+    };
   }
+
 }

@@ -35,15 +35,7 @@ public class VisitorController {
         return visitorRepository.findById(id);
     }
 
-    @GetMapping(value = "/{id}/poems")
-    public List<Poem> findVisitorPoems(@PathVariable("id") long id) {
-        Visitor visitor = visitorRepository.findById(id);
-        if (visitor == null) {
-            System.out.println("Visitor not found");
-            return null;
-        }
-        return visitor.getLikedPoems();
-    }
+
 
     @GetMapping(value = "/{id}/poems/{poemId}")
     public Poem findVisitorPoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
@@ -78,22 +70,6 @@ public class VisitorController {
         return new ResponseEntity<Visitor>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping(value = "/{id}/poems/{poemId}")
-    public ResponseEntity<Visitor> deleteVisitorPoem(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
-        Visitor visitor = visitorRepository.findById(id);
-        if (visitor == null) {
-            System.out.println("Visitor not found");
-            return new ResponseEntity<Visitor>(HttpStatus.NOT_FOUND);
-        }
-        Poem poem = poemRepository.findById(poemId);
-        if (poem == null) {
-            System.out.println("Poem not found");
-            return new ResponseEntity<Visitor>(HttpStatus.NOT_FOUND);
-        }
-        visitor.getLikedPoems().remove(poem);
-        visitorRepository.save(visitor);
-        return new ResponseEntity<Visitor>(HttpStatus.NO_CONTENT);
-    }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Visitor> updateVisitor(@PathVariable("id") long id, @RequestBody Visitor visitor) {
@@ -108,22 +84,6 @@ public class VisitorController {
         return new ResponseEntity<Visitor>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping(value = "/{id}/poems/{poemId}")
-    public ResponseEntity<Visitor> addPoemToVisitor(@PathVariable("id") long id, @PathVariable("poemId") long poemId) {
-        Visitor visitor = visitorRepository.findById(id);
-        Poem poem = poemRepository.findById(poemId);
-        if (visitor == null) {
-            System.out.println("Visitor not found");
-            return new ResponseEntity<Visitor>(HttpStatus.NOT_FOUND);
-        }
-        if (poem == null) {
-            System.out.println("Poem not found");
-            return new ResponseEntity<Visitor>(HttpStatus.NOT_FOUND);
-        }
-        visitor.addLikedPoem(poem);
-        visitorRepository.save(visitor);
-        return new ResponseEntity<Visitor>(HttpStatus.NO_CONTENT);
-    }
 
 
     @PatchMapping(value = "/{id}")

@@ -9,6 +9,43 @@ h2 {
 
 .artist-list {
   margin-bottom: 20px;
+}/* app.component.css */
+.navbar-nav.navbar-right > li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.navbar-nav.navbar-right > li:last-child {
+  margin-right: 0;
+}
+
+.navbar-nav.navbar-right .nav-link {
+  color: white;
+  background-color: #337ab7;
+  border-radius: 4px;
+  padding: 10px 15px;
+  text-decoration: none; /* Remove underline */
+}
+
+.navbar-nav.navbar-right .nav-link:hover {
+  background-color: #286090;
+}
+
+.page-header {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+#content {
+  margin-top: 20px;
 }
 
 ul {
@@ -30,4 +67,42 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+/* app.component.css */
+.navbar-nav.navbar-right > li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.navbar-nav.navbar-right > li:last-child {
+  margin-right: 0;
+}
+
+.navbar-nav.navbar-right .nav-link {
+  color: white;
+  background-color: #337ab7;
+  border-radius: 4px;
+  padding: 10px 15px;
+}
+
+.navbar-nav.navbar-right .nav-link:hover {
+  background-color: #286090;
+}
+
+.page-header {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+#content {
+  margin-top: 20px;
 }

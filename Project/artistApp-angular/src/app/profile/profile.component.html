@@ -1,0 +1,53 @@
+<div class="profile-settings">
+  <h2>Profile settings</h2>
+  <div *ngIf="authority === 'artist'">
+    <h3>Username: {{ info.username }}</h3>
+    <h3>Artist Information:</h3>
+    <ul>
+      <li><strong>Name:</strong> {{ artist?.name }}</li>
+      <li><strong>Second Name:</strong> {{ artist?.secondName }}</li>
+      <li><strong>Bio:</strong> {{ artist?.bio }}</li>
+      <li><strong>Media Links:</strong> {{ artist?.mediaLinks }}</li>
+      <li><strong>Location:</strong> {{ artist?.location }}</li>
+      <li><strong>Type:</strong> {{ artist?.type }}</li>
+      <li><strong>Age:</strong> {{ artist?.age }}</li>
+    </ul>
+
+    <ul>
+      <li *ngIf="authority === 'artist'" class="nav-item">
+        <button class="update-profile-btn" (click)="updateProfileDetails()">Update Profile Details</button>
+        <form class="update-profile-form" *ngIf="showUpdateForm" (ngSubmit)="patchArtist(name.value, secondName.value, bio.value, mediaLinks.value, location.value, type.value, age.valueAsNumber, info.username)">
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" #name required>
+          </div>
+          <div>
+            <label for="secondName">Second Name:</label>
+            <input type="text" id="secondName" #secondName required>
+          </div>
+          <div>
+            <label for="bio">Bio:</label>
+            <textarea id="bio" #bio required></textarea>
+          </div>
+          <div>
+            <label for="mediaLinks">Media Links:</label>
+            <input type="text" id="mediaLinks" #mediaLinks required>
+          </div>
+          <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" #location required>
+          </div>
+          <div>
+            <label for="type">Type:</label>
+            <input type="text" id="type" #type required>
+          </div>
+          <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" #age required>
+          </div>
+          <button type="submit" class="update-btn">Update Artist</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>

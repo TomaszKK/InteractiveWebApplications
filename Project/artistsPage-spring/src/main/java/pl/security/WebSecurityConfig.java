@@ -52,7 +52,7 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/poem/**").hasRole("ADMIN")
+                        .requestMatchers("/poem/**").permitAll()
                         .requestMatchers("/artist/**").permitAll()
                         .requestMatchers("/visitor/**").permitAll()
                         .requestMatchers("/admin/**").permitAll()

@@ -38,9 +38,11 @@ public class ArtistController {
         return artistRepository.findAll();
     }
 
-    @GetMapping(value = "/{id}")
-    public Artist findArtist(@PathVariable("id") long id) {
-        return artistRepository.findById(id);
+    @GetMapping(value = "/{username}")
+    @PreAuthorize("hasRole('ARTIST')")
+    public Artist findArtist(@PathVariable("username") String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("Error: User not found"));
+        return artistRepository.findByUser(user);
     }
 
     @GetMapping(value = "/{id}/poems")
@@ -128,7 +130,7 @@ public class ArtistController {
 
     @PatchMapping(value = "/{username}")
     @PreAuthorize("hasRole('ARTIST')")
-    public ResponseEntity<Artist> updateLoggedArtist(@RequestBody Artist updatedArtist, @PathVariable("username") String username){
+    public ResponseEntity<Artist> updateLoggedArtist(@RequestBody Artist updatedArtist, @PathVariable("username") String username) {
         User currentuser = userRepository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException("Error: User not found.")
         );
@@ -138,6 +140,7 @@ public class ArtistController {
             System.out.println("Artist not found");
             return ResponseEntity.notFound().build();
         }
+
         if (updatedArtist.getAge() != 0) {
             currentartist.setAge(updatedArtist.getAge());
         }

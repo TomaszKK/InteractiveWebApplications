@@ -55,14 +55,13 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         System.out.println("moj:"+jwt);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return ResponseEntity.ok(new JwtResponse(jwt,userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
-
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken."), HttpStatus.BAD_REQUEST);
         }
@@ -84,6 +83,7 @@ public class AuthController {
                     userRepository.save(adminUser);
                     Admin admin = new Admin();
                     admin.setUser(adminUser);
+                    adminRepository.save(admin);
                     break;
                 case "artist":
                     Role artistRole = roleRepository.findByName(RoleName.ROLE_ARTIST)
@@ -96,7 +96,7 @@ public class AuthController {
                     artist.setUser(artistUser);
                     artistRepository.save(artist);
                     break;
-                default:
+                case "visitor":
                     Role visitorRole = roleRepository.findByName(RoleName.ROLE_VISITOR)
                             .orElseThrow(() -> new RuntimeException("Fail -> Cause: Visitor Role not found."));
                     roles.add(visitorRole);

@@ -1,1 +1,69 @@
-<p>poem works!</p>
+<h2>Add Poem</h2>
+<form (ngSubmit)="add(title.value, text.value, genre.value)" class="poem-form">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" class="form-control" id="title" required #title />
+  </div>
+  <div class="form-group">
+    <label for="text">Text:</label>
+    <textarea class="form-control" id="text" required #text></textarea>
+  </div>
+  <div class="form-group">
+    <label for="genre">Genre:</label>
+    <select class="form-control" id="genre" required #genre>
+      <option value="" disabled selected>Select Genre</option>
+      <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Poem</button>
+</form>
+
+<hr>
+
+<h2>My Poems</h2>
+<label for="sortOption">Sort by:</label>
+<select id="sortOption" [(ngModel)]="selectedSortOption" (change)="sortPoems()">
+  <option value="creationDate">Creation Date</option>
+  <option value="title">Title</option>
+  <option value="genre">Genre</option>
+</select>
+
+<label for="genreFilter">Filter by Genre:</label>
+<select id="genreFilter" [(ngModel)]="selectedGenreFilter" (change)="filterPoems()">
+  <option value="">All Genres</option>
+  <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+</select>
+
+<ul>
+  <ul class="poem-list">
+    <li *ngFor="let poem of filteredPoemsList" class="poem-item">
+      <h3>{{ poem.title }}</h3>
+      <p style="white-space: pre-wrap;">{{ poem.text }}</p>
+      <p>Genre: {{ poem.genre }}</p>
+      <p>Creation Date: {{ poem.creationDate | date }}</p>
+      <button (click)="selectPoemForUpdate(poem)">Update</button>
+      <div *ngIf="selectedPoem">
+        <h4>Update Poem</h4>
+        <form class="update-poem-form" (ngSubmit)="updatePoem(title.value, text.value, genre.value, selectedPoem)">
+          <div class="form-group">
+            <label for="updateTitle">Title:</label>
+            <input type="text" class="form-control" id="updateTitle" #title required>
+          </div>
+          <div class="form-group">
+            <label for="updateText">Text:</label>
+            <textarea class="form-control" id="updateText" #text required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="updateGenre">Genre:</label>
+            <select class="form-control" id="updateGenre" #genre required>
+              <option value="" disabled>Select Genre</option>
+              <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </li>
+  </ul>
+</ul>
+

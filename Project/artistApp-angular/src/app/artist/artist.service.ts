@@ -14,8 +14,16 @@ export class ArtistService {
   private artistsUrl = 'http://localhost:8080/artist';
   constructor(private http: HttpClient) { }
 
+  getCurrentArtist(username: String): Observable<ArtistModel> {
+    return this.http.get<ArtistModel>(`${this.artistsUrl}/${username}`);
+  }
+
   getArtists(): Observable<ArtistModel[]> {
-    return this.http.get<ArtistModel[]>(this.artistsUrl);
+    return this.http.get<ArtistModel[]>(this.artistsUrl)
+      .pipe(
+        tap(artists => console.log('fetched artists')),
+        catchError(this.handleError('getArtists', []))
+      );
   }
 
   getArtist(id: number): Observable<ArtistModel> {

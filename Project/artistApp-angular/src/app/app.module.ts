@@ -16,13 +16,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {RoleGuard} from "./guard/role.guard";
 import { LogoutComponent } from './logout/logout.component';
 import {AuthGuard} from "./guard/auth.guard";
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'artist', component: ArtistComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN'] },},
-  { path: 'poem', component: PoemComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] },},
+  { path: 'poem', component: PoemComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST'] },},
   { path: 'visitor', component: VisitorComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ADMIN'] }, },
   { path: 'admin', component: AdminComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN', 'ROLE_VISITOR'] },},
   { path: 'auth/login', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },
   { path: 'logout', component: LogoutComponent},
@@ -40,6 +42,7 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     LogoutComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ const routes: Routes = [
     RouterLink,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    RouterOutlet
+    RouterOutlet,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

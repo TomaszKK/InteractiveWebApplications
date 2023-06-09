@@ -90,4 +90,5 @@ public class UserPrinciple implements UserDetails {
         UserPrinciple user = (UserPrinciple) obj;
         return Objects.equals(id, user.id);
     }
+
 }

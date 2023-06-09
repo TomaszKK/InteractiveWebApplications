@@ -16,16 +16,10 @@ export class ArtistComponent implements OnInit{
   artistList?: ArtistModel[];
 
   poemList?: PoemModel[];
-  loggedInArtist?: ArtistModel;
   info: any;
 
   ngOnInit(): void {
     this.getArtists();
-    this.userService.getLoggedInArtist().subscribe(
-      (artist: ArtistModel) => {
-        this.loggedInArtist = artist;
-      }
-    );
     this.info = {
       token: this.token.getToken(),
       username: this.token.getUsername(),
@@ -37,8 +31,7 @@ export class ArtistComponent implements OnInit{
     private ArtistService: ArtistService,
     private userService: UserService,
     private token: TokenStorageService
-) {
-  }
+) { }
 
   getArtists(): void {
     this.ArtistService.getArtists()

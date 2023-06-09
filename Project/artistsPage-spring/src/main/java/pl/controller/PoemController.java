@@ -1,28 +1,45 @@
 package pl.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pl.model.Artist;
+import pl.model.User;
+import pl.repository.ArtistRepository;
 import pl.repository.PoemRepository;
 import pl.model.Poem;
+import pl.repository.UserRepository;
+
+import java.security.Principal;
 import java.util.List;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/poem")
 public class PoemController {
     private PoemRepository poemRepository;
+    private UserRepository userRepository;
+    private ArtistRepository artistRepository;
 
     @Autowired
-    public PoemController(PoemRepository poemRepository) {
+    public PoemController(PoemRepository poemRepository, UserRepository userRepository, ArtistRepository artistRepository) {
         this.poemRepository = poemRepository;
+        this.artistRepository = artistRepository;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping(value = "/{id}")
-    public Poem findPoem(@PathVariable("id") long id) {
-        return poemRepository.findById(id);
+    @GetMapping(value = "/getArtistPoems")
+    @PreAuthorize("hasRole('ARTIST')")
+    public List<Poem> findArtistPoems(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(()-> new RuntimeException("Error: User not found"));
+        Artist artist = artistRepository.findByUser(user);
+        return artist.getPoems();
     }
 
     @GetMapping()
@@ -30,8 +47,17 @@ public class PoemController {
         return poemRepository.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<Poem> addPoem(@RequestBody Poem poem) {
+
+    @PostMapping("/addPoem")
+    @PreAuthorize("hasRole('ARTIST')")
+    public ResponseEntity<Poem> addPoem(@Valid @RequestBody Poem poem, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(()-> new RuntimeException("Error: User not found"));
+        Artist artist = artistRepository.findByUser(user);
+
+        poem.setArtist(artist);
+
+        //artistRepository.save(artist);
         poemRepository.save(poem);
         return new ResponseEntity<Poem>(poem, HttpStatus.CREATED);
     }
@@ -74,24 +100,21 @@ public class PoemController {
             System.out.println("Poem not found");
             return new ResponseEntity<Poem>(HttpStatus.NOT_FOUND);
         }
-        if (poem.getTitle() != null) {
+        if (poem.getTitle() != null && !poem.getTitle().isEmpty()) {
             currentPoem.setTitle(poem.getTitle());
         }
-        if (poem.getText() != null) {
+        if (poem.getText() != null && !poem.getText().isEmpty()) {
             currentPoem.setText(poem.getText());
         }
-        if (poem.getGenre() != null) {
+        if (poem.getGenre() != null && !poem.getGenre().isEmpty()) {
             currentPoem.setGenre(poem.getGenre());
         }
-        if(poem.getRating() != 0) {
+        if (poem.getRating() != 0) {
             currentPoem.setRating(poem.getRating());
         }
-        if(poem.getNumberOfRatings() != 0) {
+        if (poem.getNumberOfRatings() != 0) {
             currentPoem.setNumberOfRatings(poem.getNumberOfRatings());
         }
-   //     if(poem.getArtist() != null) {
-     //       currentPoem.setArtist(poem.getArtist());
-       // }
         poemRepository.save(currentPoem);
         return new ResponseEntity<Poem>(currentPoem, HttpStatus.OK);
     }
