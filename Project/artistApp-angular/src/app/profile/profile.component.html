@@ -50,4 +50,30 @@
       </li>
     </ul>
   </div>
+
+  <div *ngIf="authority === 'visitor'">
+    <h3>Username: {{ info.username }}</h3>
+    <h3>Visitor Information:</h3>
+    <ul>
+      <li><strong>Name:</strong> {{ visitor?.name }}</li>
+      <li><strong>Surname:</strong> {{ visitor?.surname }}</li>
+    </ul>
+
+    <ul>
+      <li *ngIf="authority === 'visitor'" class="nav-item">
+        <button class="update-profile-btn" (click)="updateProfileDetails()">Update Profile Details</button>
+        <form class="update-profile-form" *ngIf="showUpdateForm" (ngSubmit)="patchVisitor(name.value, surname.value)">
+          <div>
+            <label for="visitorname">Name:</label>
+            <input type="text" id="visitorname" #name required>
+          </div>
+          <div>
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" #surname required>
+          </div>
+          <button type="submit" class="update-btn">Update Visitor</button>
+        </form>
+      </li>
+    </ul>
+  </div>
 </div>

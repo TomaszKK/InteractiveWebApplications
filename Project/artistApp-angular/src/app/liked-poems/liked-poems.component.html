@@ -1,0 +1,11 @@
+<div class="liked-poem">
+  <h2>Liked Poems</h2>
+  <ul>
+    <li *ngFor="let poem of likedPoems">
+      <a [routerLink]="['/poem-page', poem.id]">
+        {{ poem.title }} - {{ poem.artist }}
+      </a>
+      <button (click)="unlikePoem(poem?.id)">Dislike</button>
+    </li>
+  </ul>
+</div>

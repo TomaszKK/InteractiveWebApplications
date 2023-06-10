@@ -4,10 +4,14 @@
 
 .profile-settings h2 {
   margin-top: 0;
+  font-size: 35px;
+  font-family: 'Old English Text MT', serif;
 }
 
 .profile-settings h3 {
+  font-size: 30px;
   margin-bottom: 10px;
+  font-family: 'Old English Text MT', serif;
 }
 
 .profile-settings ul {
@@ -17,21 +21,23 @@
 }
 
 .profile-settings ul li {
+  font-size: 20px;
   margin-bottom: 5px;
 }
 
 .profile-settings ul li strong {
   font-weight: bold;
+  font-family: 'Old English Text MT', serif;
 }
 
 .profile-settings .update-profile-btn {
   margin-left: 0;
-  background-color: #007bff;
+  background-color: black;
   color: #fff;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
-  list-style-type: none;
+  font-family: 'Old English Text MT', serif;
 }
 
 .profile-settings form {
@@ -39,27 +45,34 @@
 }
 
 .profile-settings form div {
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
 }
 
 .profile-settings form label {
-  display: block;
+  display: inline-block;
+  width: 150px;
   margin-bottom: 5px;
   font-weight: bold;
+  font-family: 'Old English Text MT', serif;
 }
 
 .profile-settings form input,
 .profile-settings form textarea {
+  flex: 1;
   width: 100%;
   padding: 5px;
-  margin-bottom: 5px;
+  margin-left: 10px;
+  font-family: 'Gothic', sans-serif;
 }
 
 .profile-settings form .update-btn {
   margin-left: 0;
-  background-color: #007bff;
+  background-color: black;
   color: #fff;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
+  font-family: 'Old English Text MT', serif;
 }

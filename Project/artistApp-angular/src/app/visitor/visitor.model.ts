@@ -6,6 +6,7 @@ export class VisitorModel {
   surname?: string;
   likedPoems?: PoemModel[];
 
+
   constructor(name: string, surname: string, likedPoems: PoemModel[]) {
     this.name = name;
     this.surname = surname;

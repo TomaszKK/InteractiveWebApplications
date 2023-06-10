@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Visitor{
@@ -13,7 +14,7 @@ public class Visitor{
     private long id;
 
     private String name, surname;
-/*
+
     @ManyToMany
     @JoinTable(
         name = "visitor_liked_poem",
@@ -21,7 +22,7 @@ public class Visitor{
         inverseJoinColumns = @JoinColumn(name = "poem_id"))
     @JsonIgnoreProperties("likedVisitors")
     private List<Poem> likedPoems;
-*/
+
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties("visitor")
@@ -63,7 +64,7 @@ public class Visitor{
     public void setUser(User user) {
         this.user=user;
     }
-/*
+
     public List<Poem> getLikedPoems() {
         return likedPoems;
     }
@@ -79,5 +80,4 @@ public class Visitor{
     public void removeLikedPoem(Poem poem) {
         this.likedPoems.remove(poem);
     }
-    */
 }

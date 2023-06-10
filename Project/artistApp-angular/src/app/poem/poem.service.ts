@@ -18,6 +18,10 @@ export class PoemService {
     return this.http.get<PoemModel[]>(this.poemUrl);
   }
 
+  get(id: number): Observable<PoemModel> {
+        return this.http.get<PoemModel>(`${this.poemUrl}/${id}`);
+  }
+
   getArtistPoems(): Observable<PoemModel[]> {
     return this.http.get<PoemModel[]>(`${this.poemUrl}/getArtistPoems`).pipe(
       catchError((error) => {

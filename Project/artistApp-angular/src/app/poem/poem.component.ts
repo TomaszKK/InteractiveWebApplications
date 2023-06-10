@@ -17,6 +17,7 @@ export class PoemComponent implements OnInit{
   selectedSortOption?: string;
   selectedGenreFilter?: string;
   selectedPoem: PoemModel | undefined = undefined;
+  isPublicValue: boolean = false;
 
   ngOnInit(): void {
     this.getArtistPoems(); // Fetch poems first
@@ -82,13 +83,14 @@ export class PoemComponent implements OnInit{
     this.selectedPoem = poem;
   }
 
-  updatePoem(title: string, text: string, genre: string, updatedPoem: PoemModel): void {
+  updatePoemPublic(title: string, text: string, genre: string, isPublic: boolean, updatedPoem: PoemModel): void {
     if (updatedPoem) {
       let id: number | undefined = updatedPoem.id;
       title = title.trim();
       text = text.trim();
       genre = genre.trim();
-      this.PoemService.patchPoem({ title, text, genre } as PoemModel, id).subscribe({
+      isPublic = isPublic;
+      this.PoemService.patchPoem({ title, text, genre, isPublic } as PoemModel, id).subscribe({
         next: (poem: PoemModel) => {
           const index = this.poemsList?.findIndex((p) => p.id === poem.id);
           if (index !== undefined && index !== -1) {
@@ -103,4 +105,29 @@ export class PoemComponent implements OnInit{
     }
   }
 
+  updatePoem(title: string, text: string, genre: string, updatedPoem: PoemModel): void {
+    if (updatedPoem) {
+      let id: number | undefined = updatedPoem.id;
+      title = title.trim();
+      text = text.trim();
+      genre = genre.trim();
+      this.PoemService.patchPoem({ title, text, genre} as PoemModel, id).subscribe({
+        next: (poem: PoemModel) => {
+          const index = this.poemsList?.findIndex((p) => p.id === poem.id);
+          if (index !== undefined && index !== -1) {
+            this.poemsList?.splice(index, 1, poem);
+          }
+          this.selectedPoem = undefined;
+        },
+        error: (error) => {
+          console.error('Error updating poem:', error);
+        },
+      });
+    }
+  }
+
+  togglePublicStatus(poem: PoemModel) {
+    const updatedIsPublic = !poem.isPublic;
+    this.updatePoemPublic(poem.title, poem.text, poem.genre, updatedIsPublic, poem);
+  }
 }

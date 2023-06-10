@@ -1,0 +1,29 @@
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Old English Text MT', serif;
+}
+
+.logout-container p {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.logout-container button {
+  border: 3px solid #fff;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #fff;
+  font-family: 'Old English Text MT', serif;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.logout-container button:hover {
+  background-color: #fff;
+  color: #000;
+}

@@ -14,8 +14,8 @@ export class ArtistService {
   private artistsUrl = 'http://localhost:8080/artist';
   constructor(private http: HttpClient) { }
 
-  getCurrentArtist(username: String): Observable<ArtistModel> {
-    return this.http.get<ArtistModel>(`${this.artistsUrl}/${username}`);
+  getCurrentArtist(): Observable<ArtistModel> {
+    return this.http.get<ArtistModel>(`${this.artistsUrl}/currentArtist`);
   }
 
   getArtists(): Observable<ArtistModel[]> {

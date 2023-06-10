@@ -1,61 +1,77 @@
-/* Add Poem Form */
+.poem h2 {
+  text-align: center;
+  font-family: "Old English Text MT", serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
 .poem-form {
   margin-bottom: 20px;
 }
 
+.poem-form .form-group {
+  margin-bottom: 10px;
+}
+
 .poem-form label {
-  display: block;
-  margin-bottom: 5px;
+  display: inline-block;
+  width: 100px;
   font-weight: bold;
 }
 
-.poem-form input,
+.poem-form input[type="text"],
+.poem-form textarea,
 .poem-form select {
-  width: 50%;
+  width: 100%;
   padding: 5px;
-  margin-bottom: 10px;
 }
 
-.poem-form textarea{
-  width: 50%;
-  height: 100px;
-  padding: 5px;
-  margin-bottom: 10px;
+.poem-form textarea {
+  height: 200px;
 }
 
-.poem-form button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-/* Poem List */
 .poem-list {
   list-style-type: none;
   padding: 0;
 }
 
 .poem-item {
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .poem-item h3 {
   margin-top: 0;
 }
 
-.poem-item p {
-  margin-bottom: 5px;
+.update-poem-form {
+  margin-top: 10px;
 }
 
-.poem-item .genre {
+.update-poem-form .form-group {
+  margin-bottom: 10px;
+}
+
+.update-poem-form label {
+  display: inline-block;
+  width: 100px;
   font-weight: bold;
 }
 
-.poem-item .creation-date {
-  color: #888;
+.update-poem-form input[type="text"],
+.update-poem-form textarea,
+.update-poem-form select {
+  width: 100%;
+  padding: 5px;
+}
+
+.update-poem-form textarea{
+  height: 100px;
+}
+
+.btn-primary {
+  background-color: black;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
 }

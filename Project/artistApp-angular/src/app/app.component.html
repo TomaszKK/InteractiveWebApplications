@@ -1,32 +1,35 @@
-<div class="page-header">
+<div class="gothic-page-header">
   <div class="container">
     <h1>Artist App</h1>
   </div>
 </div>
 
-<nav class="navbar navbar-inverse">
+<nav class="gothic-navbar">
   <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-right" routerLinkActive="active">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="home">Home</a>
+    <ul class="gothic-nav">
+      <li class="gothic-nav-item">
+        <a class="gothic-nav-link" routerLink="home" routerLinkActive="active">Home</a>
       </li>
-      <li *ngIf="authority === 'artist'"  class="nav-item">
-        <a class="nav-link" routerLink="poem">My Poems</a>
+      <li *ngIf="authority === 'visitor'" class="gothic-nav-item">
+        <a class="gothic-nav-link" routerLink="liked-poems" routerLinkActive="active">Likes</a>
       </li>
-      <li *ngIf="authority" class="nav-item">
-        <a class="nav-link" routerLink="profile">Profile</a>
+      <li *ngIf="authority === 'artist'" class="gothic-nav-item">
+        <a class="gothic-nav-link" routerLink="poem" routerLinkActive="active">My Poems</a>
       </li>
-      <li *ngIf="!authority" class="nav-item">
-        <a class="nav-link" routerLink="auth/login">Login</a>
+      <li *ngIf="authority" class="gothic-nav-item">
+        <a class="gothic-nav-link" routerLink="profile" routerLinkActive="active">Profile</a>
       </li>
-      <li *ngIf="authority" class="nav-item">
-        <a class="nav-link" routerLink="logout">Logout</a>
+      <li *ngIf="!authority" class="gothic-nav-item">
+        <a class="gothic-nav-link" routerLink="auth/login" routerLinkActive="active">Login</a>
+      </li>
+      <li *ngIf="authority" class="gothic-nav-item">
+        <a class="gothic-nav-link" routerLink="logout" routerLinkActive="active">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
 
-<div id="content">
+<div id="content" class="gothic-content">
   <div class="container">
     <router-outlet></router-outlet>
   </div>

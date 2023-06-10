@@ -1,0 +1,54 @@
+.poem-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.poem {
+  width: 600px;
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Old English Text MT', serif;
+}
+
+.poem-title {
+  font-size: 40px;
+  color: maroon;
+  margin: 0;
+}
+
+.poem-text {
+  font-size: 20px;
+  font-family: 'GothicFont', sans-serif;
+  margin: 10px 0;
+  white-space: pre-line; /* Preserve line breaks and formatting */
+}
+
+.poem-info {
+  margin-top: 20px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: 10px 0;
+}
+
+.poem-info p {
+  font-size: 10px;
+  margin: 5px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.poem button {
+  border: 1px solid #fff;
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #fff;
+  font-family: 'GothicFont', sans-serif;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.poem button:hover {
+  background-color: #fff;
+  color: #000;
+}

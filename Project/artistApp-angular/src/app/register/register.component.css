@@ -1,4 +1,81 @@
+.gothic-page-header {
+  background-color: black;
+  padding: 20px;
+}
+
+.gothic-page-header h1 {
+  font-family: 'Old English Text MT', serif;
+  font-size: 32px;
+  color: red;
+  margin: 0;
+}
+
+.gothic-navbar {
+  background-color: black;
+}
+
+.gothic-nav-link.active {
+  color: gray;
+}
+
+.gothic-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gothic-nav-item {
+  margin-right: 10px;
+}
+
+.gothic-nav-link {
+  font-family: 'Old English Text MT', serif;
+  font-size: 24px;
+  color: red;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.gothic-nav-link:hover {
+  color: gray;
+}
+
+
+
 .selected-role {
-  background-color: #007bff;
-  color: #fff;
+  background-color: red;
+  color: white;
+}
+
+#username {
+  font-family: 'Old English Text MT', serif;
+  font-size: 18px;
+  color: red;
+}
+
+#password {
+  font-family: 'Old English Text MT', serif;
+  font-size: 18px;
+  color: red;
+}
+
+#role {
+  font-family: 'Old English Text MT', serif;
+  font-size: 18px;
+  color: red;
+}
+
+
+.gothic-content .btn-primary {
+  background-color: red;
+  color: black;
+  border-color: red;
+}
+
+.gothic-content .selected-role {
+  background-color: black;
+  color: white;
+  border-color: black;
 }

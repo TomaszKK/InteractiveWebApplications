@@ -1,0 +1,14 @@
+<div class="poem-container">
+  <div class="poem">
+    <h3 class="poem-title">{{ poem?.title }}</h3>
+    <p class="poem-text">{{ poem?.text }}</p>
+    <div class="poem-info">
+      <p>Author: {{ poem?.artistName}} {{poem?.artistSecondName}}</p>
+      <p>Genre: {{ poem?.genre }}</p>
+      <p>Created on: {{poem?.creationDate | date:'dd.MM.yyyy'}}</p>
+    </div>
+    <button *ngIf="authority === 'visitor'" (click)="likePoem(poem?.id); $event.stopPropagation()" [disabled]="isPoemLiked(poem?.id)">
+      {{ isPoemLiked(poem?.id) ? 'Liked' : 'Like' }}
+    </button>
+  </div>
+</div>

@@ -38,10 +38,11 @@ public class ArtistController {
         return artistRepository.findAll();
     }
 
-    @GetMapping(value = "/{username}")
+    @GetMapping("/currentArtist")
     @PreAuthorize("hasRole('ARTIST')")
-    public Artist findArtist(@PathVariable("username") String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("Error: User not found"));
+    public Artist findArtist(HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow(()-> new RuntimeException("Error: User not found"));
         return artistRepository.findByUser(user);
     }
 

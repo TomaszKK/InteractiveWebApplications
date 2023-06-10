@@ -1,0 +1,10 @@
+<div *ngIf="poem" class="poem-container">
+  <div class="poem">
+    <h2 class="poem-title">{{ poem.title }}</h2>
+    <p class="poem-text">{{ poem.text }}</p>
+    <div class="poem-info">
+      <p>Artist: {{ poem.artist }}</p>
+      <p>Genre: {{ poem.genre }}</p>
+    </div>
+  </div>
+</div>

@@ -17,16 +17,22 @@ import {RoleGuard} from "./guard/role.guard";
 import { LogoutComponent } from './logout/logout.component';
 import {AuthGuard} from "./guard/auth.guard";
 import { ProfileComponent } from './profile/profile.component';
+import { LikedPoemsComponent } from './liked-poems/liked-poems.component';
+import { PoemPostComponent } from './poem-post/poem-post.component';
+import { PoemPageComponent } from './poem-page/poem-page.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'artist', component: ArtistComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN'] },},
-  { path: 'poem', component: PoemComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST'] },},
+  { path: 'poem', component: PoemComponent},
   { path: 'visitor', component: VisitorComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ADMIN'] }, },
   { path: 'admin', component: AdminComponent },
+  { path: 'liked-poems', component: LikedPoemsComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ARTIST', 'ROLE_ADMIN'] }, },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN', 'ROLE_VISITOR'] },},
   { path: 'auth/login', component: LoginComponent },
+  { path: 'poem-page', component: PoemPageComponent},
   { path: 'signup', component: RegisterComponent },
+  { path: 'poem-page/:id', component: PoemPageComponent },
   { path: 'logout', component: LogoutComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
@@ -42,7 +48,10 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     LogoutComponent,
-    ProfileComponent
+    ProfileComponent,
+    LikedPoemsComponent,
+    PoemPostComponent,
+    PoemPageComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +62,7 @@ const routes: Routes = [
     RouterOutlet,
   ],
   providers: [httpInterceptorProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule { }

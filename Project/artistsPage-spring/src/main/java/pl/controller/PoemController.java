@@ -18,8 +18,9 @@ import pl.repository.UserRepository;
 import java.security.Principal;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/poem")
 public class PoemController {
     private PoemRepository poemRepository;
@@ -47,6 +48,10 @@ public class PoemController {
         return poemRepository.findAll();
     }
 
+    @GetMapping(value = "/{id}")
+    public Poem findPoem(@PathVariable("id") long id) {
+        return poemRepository.findById(id);
+    }
 
     @PostMapping("/addPoem")
     @PreAuthorize("hasRole('ARTIST')")
@@ -95,6 +100,7 @@ public class PoemController {
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Poem> updatePoemPartially(@PathVariable("id") long id, @RequestBody Poem poem) {
+
         Poem currentPoem = poemRepository.findById(id);
         if (currentPoem == null) {
             System.out.println("Poem not found");
@@ -115,7 +121,11 @@ public class PoemController {
         if (poem.getNumberOfRatings() != 0) {
             currentPoem.setNumberOfRatings(poem.getNumberOfRatings());
         }
+        if (poem.isPublic() != currentPoem.isPublic()) {
+            currentPoem.setIsPublic(poem.isPublic());
+        }
         poemRepository.save(currentPoem);
         return new ResponseEntity<Poem>(currentPoem, HttpStatus.OK);
     }
+
 }

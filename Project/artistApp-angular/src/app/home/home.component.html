@@ -1,11 +1,24 @@
-<p>Home works!</p>
-<div>
-  <h5 class="text-primary">Your Information</h5>
-  <p>
-    <strong>Username:</strong> {{info.username}}<br/>
-    <strong>Roles:</strong> {{info.authorities}}<br />
-    <strong>Token:</strong> {{info.token}}.
-  </p>
+<div class="search-container">
+  <div class="search-field">
+    <label for="searchText" class="gothic-label">Search by Title:</label>
+    <input type="text" id="searchText" [(ngModel)]="searchText" (input)="filterPoems()" (keyup.enter)="filterPoems()" class="gothic-input">
+    <button (click)="searchPoems()" class="gothic-button">Search</button>
+  </div>
+
+  <div class="filter-field">
+    <label for="genreFilter" class="gothic-label">Filter by Genre:</label>
+    <select id="genreFilter" [(ngModel)]="selectedGenre" (change)="filterPoems()" class="gothic-select">
+      <option value="">All Genres</option>
+      <option *ngFor="let genre of genres" [value]="genre" class="gothic-option">{{ genre }}</option>
+    </select>
+  </div>
 </div>
 
-
+<div class="poem-list">
+  <h2 class="gothic-heading">Darkest Poems Of The Year</h2>
+  <ul class="gothic-list">
+    <li *ngFor="let poem of filteredPoemsList" (click)="goToPoemPage(poem)">
+      <app-poem-post [poem]="poem"></app-poem-post>
+    </li>
+  </ul>
+</div>

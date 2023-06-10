@@ -4,6 +4,8 @@ import {PoemModel} from "../poem/poem.model";
 import {UserService} from "../servicesSecurity/user.service";
 import {TokenStorageService} from "../auth/token-storage.service";
 import {ArtistService} from "../artist/artist.service";
+import {VisitorModel} from "../visitor/visitor.model";
+import {VisitorService} from "../visitor/visitor.service";
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +15,9 @@ import {ArtistService} from "../artist/artist.service";
 export class ProfileComponent implements OnInit{
   artist?: ArtistModel;
   artistList?: ArtistModel[];
+  visitor?: VisitorModel;
+  visitorList?: VisitorModel[];
+
   info: any;
   showUpdateForm = false;
 
@@ -20,7 +25,8 @@ export class ProfileComponent implements OnInit{
   authority?: string;
 
   ngOnInit(): void {
-    this.findArtist(this.token.getUsername());
+    this.findArtist();
+    this.findVisitor();
     this.info = {
       token: this.token.getToken(),
       username: this.token.getUsername(),
@@ -46,11 +52,12 @@ export class ProfileComponent implements OnInit{
   constructor(
     private ArtistService: ArtistService,
     private userService: UserService,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    private VisitorService: VisitorService
   ) { }
 
-  findArtist(username: String): void {
-    this.ArtistService.getCurrentArtist(username).subscribe(
+  findArtist(): void {
+    this.ArtistService.getCurrentArtist().subscribe(
       (result: ArtistModel) => {
         this.artist = result;
       },
@@ -58,6 +65,17 @@ export class ProfileComponent implements OnInit{
         console.error('Error retrieving artist:', error);
       }
     );
+  }
+
+  findVisitor(): void {
+    this.VisitorService.getCurrentVisitor().subscribe(
+      (result: VisitorModel) => {
+        this.visitor = result;
+      },
+      (error) => {
+        console.error('Error retrieving visitor:', error);
+      }
+      );
   }
 
   updateProfileDetails(): void {
@@ -109,6 +127,33 @@ export class ProfileComponent implements OnInit{
         },
       });
     }
+  }
+
+  patchVisitor(name: String, surname: String){
+    const updatedVisitor: VisitorModel = {
+      name: name.trim() || undefined,
+      surname: surname.trim() || undefined,
+    };
+
+    this.VisitorService.patchVisitor(updatedVisitor).subscribe({
+      next: (visitor: VisitorModel) => {
+        if (this.visitorList !== undefined) {
+          const index = this.visitorList.findIndex(a => a.id === visitor.id);
+          if (index !== -1) {
+            this.visitorList[index] = visitor;
+          }
+        }
+      },
+      error: () => {},
+      complete: () => {
+        if (this.visitorList !== undefined) {
+          this.VisitorService.totalItems.next(this.visitorList.length);
+          console.log(this.visitorList.length);
+        }
+        window.location.reload(); // Reload the page
+        this.showUpdateForm = false;
+      },
+    });
   }
 
 
