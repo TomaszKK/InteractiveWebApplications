@@ -53,12 +53,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/poem/**").permitAll()
-                        .requestMatchers("/artist/**").permitAll()
-                        .requestMatchers("/visitor/**").permitAll()
-                        .requestMatchers("/admin/**").permitAll()
-                        .requestMatchers("/error").permitAll() // this enables the body in the exception responses
-                        //.requestMatchers("/exampleSecurity/user").hasRole("USER")
-                        //.requestMatchers("/exampleSecurity/admin").hasRole("ADMIN")
+                        .requestMatchers("/poem/addPoem").hasRole("ARTIST")
+                        .requestMatchers("/artist/**").hasRole("ARTIST")
+                        .requestMatchers("/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(unauthorized -> unauthorized

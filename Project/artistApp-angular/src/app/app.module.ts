@@ -24,7 +24,7 @@ import { PoemPageComponent } from './poem-page/poem-page.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'artist', component: ArtistComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN'] },},
-  { path: 'poem', component: PoemComponent},
+  { path: 'poem', component: PoemComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ARTIST', 'ROLE_ADMIN'] },},
   { path: 'visitor', component: VisitorComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ADMIN'] }, },
   { path: 'admin', component: AdminComponent },
   { path: 'liked-poems', component: LikedPoemsComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VISITOR', 'ROLE_ARTIST', 'ROLE_ADMIN'] }, },
